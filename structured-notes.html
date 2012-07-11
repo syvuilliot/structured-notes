@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="../dijit/themes/claro/claro.css" />
+    <meta charset="utf-8">
+    <title>Structured notes</title>
+</head>
+<body class="claro">
+	<div id="app"></div>
+    <script data-dojo-config="async: 1, isDebug: 1"
+            src="../dojo/dojo.js"></script>
+    <script>
+		require([
+			"structured-notes/NotesManager",
+		], function(NotesManager){
+			window.notesManager = new NotesManager({});
+/*			window.noteTypeList = notesManager.getChild("noteTypeList");//the manager of list of noteTypes
+			noteTypeList.select("first");
+			window.noteList = notesManager.getChild("noteList");//the manager of list of notes
+			noteList.select(3);
+			window.noteManager = notesManager.getChild("note");
+			window.note = noteManager.get("data");
+			window.schema = note.get("schema");
+			var firstProp = Object.keys(schema.properties)[0];
+			note.set(firstProp, "test").save();
+*/
+
+		});
+	</script>
+</body>
+</html>
