@@ -1,28 +1,21 @@
 define([
 	"dojo/_base/declare",
 	"SkFramework/model/Model",
-	"./models/Type",
-], function(declare, Model, Type){
+	"./models/Schema",
+], function(declare, Model, Schema){
 
-	//for test only
-	new Type({
-		id:"Note",
-		construct: function Note(){Model.apply(this, arguments);},
-		prototypeProps: {
-			validate: function(){
-				return this.title ? true : false;
-			}
+	new Schema({
+		id: "Note",
+		description: "Note avec un titre",
+		type: "object",
+		properties: {
+			title: {type: "string"},
 		}
-
 	}).save();
 
 	var loadTypes = function(typeList){
-		Type.query({}).forEach(function(type){
-			typeList[type.id] = Model.extend(
-				type.construct,
-				type.prototypeProps
-				//type.classProps
-			);
+		Schema.query({}).forEach(function(schema){
+			typeList[schema.id] = Model.extendWithSchema(schema);
 		});
 	};
 
@@ -30,7 +23,15 @@ define([
 		constructor: function(params){
 			this.types = {};
 			loadTypes(this.types);
-
+			var Note = this.types.Note;
+			this.types.NoteWithNumber = Note.extendWithSchema({
+				id: "NoteWithNumber",
+				description: "Note avec un titre et un nombre",
+				properties: {
+					number: {type: "number"},
+				}
+			});
 		},
+
 	});
 });
