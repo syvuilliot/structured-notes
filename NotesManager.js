@@ -4,7 +4,7 @@ define([
 	"./models/Schema",
 ], function(declare, Model, Schema){
 
-	new Schema({
+/*	new Schema({
 		id: "NoteWithNumber",
 		description: "Note avec un titre et un nombre",
 		properties: {
@@ -22,7 +22,7 @@ define([
 		},
 		"extends": "Model",
 	}).save();
-
+*/
 	var loadType = function(typeId, typeList){
 		if (typeList[typeId]){return typeList[typeId];}
 		var schema = Schema.get(typeId);
@@ -34,10 +34,15 @@ define([
 
 	return declare([], {
 		constructor: function(params){
+			//load schemas
+			Schema.store.load();
+			//load types
 			this.types = {};
 			Schema.query().forEach(function(schema){
 				loadType(schema.id, this.types);
 			}.bind(this));
+			//load instances
+			Model.store.load();
 		},
 
 	});
