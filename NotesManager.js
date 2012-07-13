@@ -4,25 +4,6 @@ define([
 	"./models/Schema",
 ], function(declare, Model, Schema){
 
-/*	new Schema({
-		id: "NoteWithNumber",
-		description: "Note avec un titre et un nombre",
-		properties: {
-			number: {type: "number"},
-		},
-		"extends": "Note"
-	}).save();
-
-	new Schema({
-		id: "Note",
-		description: "Note avec un titre",
-		type: "object",
-		properties: {
-			title: {type: "string"},
-		},
-		"extends": "Model",
-	}).save();
-*/
 	var loadType = function(typeId, typeList){
 		if (typeList[typeId]){return typeList[typeId];}
 		var schema = Schema.get(typeId);
@@ -43,6 +24,15 @@ define([
 			}.bind(this));
 			//load instances
 			Model.store.load();
+		},
+		addType: function(schema){
+			var type;
+			type = this.types[schema.id];
+			if (! type) {
+				new Schema(schema).save();
+				type = loadType(schema.id, this.types);
+			}
+			return type;
 		},
 
 	});

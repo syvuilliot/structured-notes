@@ -25,12 +25,30 @@
 			note.set(firstProp, "test").save();
 */
 			//test
+			notesManager.addType({
+				id: "Note",
+				description: "Note avec un titre",
+				type: "object",
+				properties: {
+					title: {type: "string"},
+				},
+				"extends": "Model",
+			});
+
+			window.NoteWithNumber = notesManager.addType({
+				id: "NoteWithNumber",
+				description: "Note avec un titre et un nombre",
+				properties: {
+					number: {type: "number"},
+				},
+				"extends": "Note"
+			});
+
 			window.Note = notesManager.types.Note;
 			window.firstNote = new Note({title: "First note"}).save();
 			window.invalidNote = new Note({/*title: 3, */content: "invalid note"}).save();
 			console.log("all notes", Note.query());
 
-			window.NoteWithNumber = notesManager.types.NoteWithNumber;
 			window.secondNote = new NoteWithNumber({title: "Second note", number:3}).save();
 			window.invalidNoteWithNumber = new NoteWithNumber({title: "Second note", number:"3"}).save();
 			window.otherInvalidNoteWithNumber = new NoteWithNumber({title: 3, number:3}).save();
