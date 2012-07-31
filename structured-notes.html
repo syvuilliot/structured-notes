@@ -35,11 +35,11 @@
 				"extends": "Model",
 			});
 
-			window.NoteWithNumber = notesManager.addType({
-				id: "NoteWithNumber",
-				description: "Note avec un titre et un nombre",
+			window.Todo = notesManager.addType({
+				id: "Todo",
+				description: "Note avec un titre et un flag 'done'",
 				properties: {
-					number: {type: "number"},
+					done: {type: "boolean"},
 				},
 				"extends": "Note"
 			});
@@ -49,9 +49,9 @@
 			window.invalidNote = new Note({/*title: 3, */content: "invalid note"}).save();
 			console.log("all notes", Note.query());
 
-			window.secondNote = new NoteWithNumber({title: "Second note", number:3}).save();
-			window.invalidNoteWithNumber = new NoteWithNumber({title: "Second note", number:"3"}).save();
-			window.otherInvalidNoteWithNumber = new NoteWithNumber({title: 3, number:3}).save();
+			window.firstTodo = new Todo({title: "First todo", done: false}).save();
+			window.invalidTodo = new Todo({title: "Invalid todo", done:"3"}).save();
+			window.otherInvalidTodo = new Todo({title: 3, done: false}).save();
 			console.log("all notes", Note.query());
 
 
